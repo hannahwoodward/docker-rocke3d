@@ -11,7 +11,17 @@
 * [Docker run help](https://docs.docker.com/engine/reference/commandline/run/)
 
 
-## Building & running image from scratch
+## Installation
+
+* [Install Docker desktop](https://www.docker.com/get-started)
+* Ensure Docker desktop is running
+* Download published image:
+
+```
+docker pull woodwardsh/rocke3d:latest
+```
+
+## Building image from scratch
 
 * Clone repo & navigate inside:
 
@@ -19,8 +29,24 @@
 git clone git@github.com:hannahwoodward/docker-rocke3d.git && cd docker-rocke3d
 ```
 
-* Build image from Dockerfile:
+* Build image from Dockerfile (~15 min):
 
 ```
 docker build -t rocke3d .
+
+# Or, if debugging:
+
+docker build -t rocke3d . --progress=plain --no-cache
 ```
+
+## Publishing image
+
+```
+docker login && docker tag rocke3d woodwardsh/rocke3d && docker push woodwardsh/rocke3d
+```
+
+## TODO
+
+[] Copy tests from ROCKE-3D installation doc
+[] Add option of mounting external volume for output netcdfs
+[] Finish README with running image & use
