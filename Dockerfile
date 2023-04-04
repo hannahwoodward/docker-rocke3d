@@ -50,3 +50,7 @@ RUN mkdir -p ModelE_Support/socrates/{spectral_files,stellar_spectra} && \
 RUN cd $MODELDIR/model/mk_diags && \
     make diags && \
     echo "export PATH=$PATH:$HOME/${MODELDIR}/model/mk_diags" >> /root/.bashrc
+
+# --- Copy over test runs ---
+COPY test-earth.sh test-earth.sh
+COPY test-planet.sh test-planet.sh
