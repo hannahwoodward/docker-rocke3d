@@ -5,9 +5,9 @@ ENV MODELDIR=modelE2_planet_1.0
 WORKDIR ${HOME}
 
 # --- Install dependencies ---
-RUN yum -y install gcc gcc-gfortran git wget xz netcdf.x86_64 netcdf-fortran.x86_64 netcdf-devel.x86_64 netcdf-fortran-devel.x86_64 openmpi.x86_64 openmpi-devel.x86_64
-RUN echo "module load mpi/openmpi-x86_64" >> /root/.bashrc
-RUN dnf install -y 'perl(File::Copy)'
+RUN yum -y install gcc gcc-gfortran git nano wget xz netcdf.x86_64 netcdf-fortran.x86_64 netcdf-devel.x86_64 netcdf-fortran-devel.x86_64 openmpi.x86_64 openmpi-devel.x86_64 && \
+    echo "module load mpi/openmpi-x86_64" >> /root/.bashrc && \
+    dnf install -y 'perl(File::Copy)'
 
 # --- Download latest model code, SOCRATES (radiation), spectral files ---
 RUN wget https://simplex.giss.nasa.gov/snapshots/modelE2_planet_1.0.latest.tgz
@@ -15,7 +15,7 @@ RUN wget https://simplex.giss.nasa.gov/snapshots/socrates_1710.tar.xz
 RUN wget https://www.giss.nasa.gov/staff/mway/spectral_files.tgz    # 1.6GB
 RUN wget https://www.giss.nasa.gov/staff/mway/stellar_spectra.tgz
 
-# Extract model code
+# --- Extract model code ---
 RUN mkdir $MODELDIR && \
     tar -xf modelE2_planet_1.0.latest.tgz -C $MODELDIR --strip-components=1 && \
     rm modelE2_planet_1.0.latest.tgz
