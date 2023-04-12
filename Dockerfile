@@ -2,12 +2,15 @@ FROM fedora:latest
 
 ENV HOME=/home/app
 ENV MODELDIR=modelE2_planet_1.0
+ENV OMPI_ALLOW_RUN_AS_ROOT=1
+ENV OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 WORKDIR ${HOME}
 
-# --- Install dependencies ---
-RUN yum -y install gcc gcc-gfortran git nano wget xz netcdf.x86_64 netcdf-fortran.x86_64 netcdf-devel.x86_64 netcdf-fortran-devel.x86_64 openmpi.x86_64 openmpi-devel.x86_64 && \
-    echo "module load mpi/openmpi-x86_64" >> /root/.bashrc && \
-    dnf install -y 'perl(File::Copy)'
+# --- Install dependencies (layer shared with exocam image) ---
+RUN dnf install -y gcc gcc-gfortran git nano wget which xz netcdf.x86_64 netcdf-fortran.x86_64 netcdf-devel.x86_64 netcdf-fortran-devel.x86_64 openmpi.x86_64 openmpi-devel.x86_64 'perl(File::Copy)'
+
+# Ensure mpif90 in path
+ENV PATH=$PATH:/usr/lib64/openmpi/bin
 
 # --- Download latest model code, SOCRATES (radiation), spectral files ---
 RUN wget https://simplex.giss.nasa.gov/snapshots/modelE2_planet_1.0.latest.tgz
@@ -15,13 +18,11 @@ RUN wget https://simplex.giss.nasa.gov/snapshots/socrates_1710.tar.xz
 RUN wget https://www.giss.nasa.gov/staff/mway/spectral_files.tgz    # 1.6GB
 RUN wget https://www.giss.nasa.gov/staff/mway/stellar_spectra.tgz
 
-# --- Extract model code ---
+# --- Extract model code and install some diagnostic tools ---
 RUN mkdir $MODELDIR && \
     tar -xf modelE2_planet_1.0.latest.tgz -C $MODELDIR --strip-components=1 && \
-    rm modelE2_planet_1.0.latest.tgz
-
-# --- Prepare computer for installing some diagnostic tools and running the model ---
-RUN cd $MODELDIR/decks && \
+    rm modelE2_planet_1.0.latest.tgz && \
+    cd $MODELDIR/decks && \
     make config ModelE_Support=$HOME/ModelE_Support
 
 # --- Adjust .modelErc ---
@@ -48,8 +49,10 @@ RUN mkdir -p ModelE_Support/socrates/{spectral_files,stellar_spectra} && \
 
 # --- Create GISS diagnostic tools ---
 RUN cd $MODELDIR/model/mk_diags && \
-    make diags && \
-    echo "export PATH=$PATH:$HOME/${MODELDIR}/model/mk_diags" >> /root/.bashrc
+    make diags
+
+# Add mk_diags to path
+ENV PATH=$PATH:$HOME/$MODELDIR/model/mk_diags
 
 # --- Copy over test runs ---
 COPY test-earth.sh test-earth.sh

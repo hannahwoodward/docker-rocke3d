@@ -9,4 +9,4 @@ sed -i "s|!\{0,1\} \{0,1\}spectral_file_lw=.*|spectral_file_lw='sp_lw_ga7/sp_lw_
 sed -i "s|!\{0,1\} \{0,1\}spectral_file_sw=.*|spectral_file_sw='sp_sw_ga7/sp_sw_ga7_dsa'|" P1SoM40_Test.R
 
 make clean; make -j setup RUN=P1SoM40_Test
-OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 ../exec/runE P1SoM40_Test -cold-restart -np 2
+../exec/runE P1SoM40_Test -cold-restart -np 2
