@@ -10,7 +10,6 @@
 * [ROCKE-3D Compilers & libraries](https://docs.google.com/document/d/1-I8x1Op215f3m3NTtEo_cP2G-lP329pyEEUAzH6Xhog/view)
 * [ROCKE-3D Installation](https://docs.google.com/document/d/1yyI0CDx1wEYbwqRsbvczXpdW2teePZ_NgIePTLFHtNA/edit)
 * [ROCKE-3D Tutorial Videos](https://www.youtube.com/playlist?list=PLpMmnV3HS7r3KGXX8hmIBR3grXNu5hfW-)
-* [ROCKE-3D Diagnostics Info](https://simplex.giss.nasa.gov/gcm/doc/UserGuide/diagnostics.html)
 * [ROCKE-3D Publication Supplements (inc rundecks)](https://portal.nccs.nasa.gov/GISS_modelE/ROCKE-3D/publication-supplements/)
 * [Docker build help](https://docs.docker.com/engine/reference/commandline/build/)
 * [Docker run help](https://docs.docker.com/engine/reference/commandline/run/)
@@ -77,6 +76,15 @@ docker run -it --rm --volume=${PWD}/huge_space:/home/app/ModelE_Support/huge_spa
 * Run `sh test-planet.sh` (uses SOCRATES; output written to `huge_space/P1SoM40_test`)
 
 
+## Diagnostics & Post-processing
+
+* [ROCKE-3D Diagnostics info](https://simplex.giss.nasa.gov/gcm/doc/UserGuide/diagnostics.html)
+* `$MODELDIR/model/mk_diags` directory has been added to PATH, which contains scripts to generate readable netcdf model outputs
+  * `scaleacc` for interim/accumulative source files (e.g. `PARTIAL.acc$RUN_ID.nc aij`)
+  * `sumfiles` to combine multiple acc files across different time periods
+  * Documention can be found in `$MODELDIR/model/mk_diags/conventions.txt`
+
+
 ## Publishing image
 
 ```
@@ -93,3 +101,6 @@ docker login && docker tag rocke3d woodwardsh/rocke3d && docker push woodwardsh/
   * `IRANDI=X` random number generation seed/adding numerical noise, used for cloud generation
   * `master_yr=1850` tells model to use Earth greenhouse gas concentrations
   * `master_yr=0` runs a transient simulaton
+* For non-Earth continental configurations:
+  * Ensure land mass added at south pole to prevent grid singularity issues
+  * Change `OCNDYN.f#L5812`: `J10=4` to `J10=1` (or whatever latitude south pole landmass ends at)
