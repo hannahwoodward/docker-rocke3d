@@ -19,8 +19,10 @@ RUN wget https://www.giss.nasa.gov/staff/mway/spectral_files.tgz    # 1.6GB
 RUN wget https://www.giss.nasa.gov/staff/mway/stellar_spectra.tgz
 
 # --- Extract model code and install some diagnostic tools ---
+# NB adding --no-check-certificate due to certificate errors from portal.nccs.nasa.gov during get_input_data
 RUN mkdir $MODELDIR && \
     tar -xf modelE2_planet_1.0.latest.tgz -C $MODELDIR --strip-components=1 && \
+    sed -i "s|wget \$DATA_PORTAL_URL|wget --no-check-certificate \$DATA_PORTAL_URL|" $MODELDIR/exec/get_input_data && \
     rm modelE2_planet_1.0.latest.tgz && \
     cd $MODELDIR/decks && \
     make config ModelE_Support=$HOME/ModelE_Support
