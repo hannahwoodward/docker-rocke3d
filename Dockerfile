@@ -9,8 +9,9 @@ WORKDIR ${HOME}
 # --- Install dependencies (layer shared with exocam image) ---
 RUN dnf install -y gcc gcc-gfortran git nano wget which xz netcdf.x86_64 netcdf-fortran.x86_64 netcdf-devel.x86_64 netcdf-fortran-devel.x86_64 openmpi.x86_64 openmpi-devel.x86_64 'perl(File::Copy)'
 
-# Ensure mpif90 in path
+# Ensure mpif90 in path & set LD_LIBRARY_PATH for mk_diags
 ENV PATH=$PATH:/usr/lib64/openmpi/bin
+ENV LD_LIBRARY_PATH=/usr/lib64/openmpi/lib
 
 # --- Download latest model code, SOCRATES (radiation), spectral files ---
 RUN wget https://simplex.giss.nasa.gov/snapshots/modelE2_planet_1.0.latest.tgz
