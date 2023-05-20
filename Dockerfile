@@ -46,9 +46,9 @@ RUN mkdir -p ModelE_Support/{exec,huge_space,prod_decks,prod_input_files,prod_ru
 
 # --- Unpack SOCRATES spectral_files, stellar spectra and code files ---
 RUN mkdir -p ModelE_Support/socrates/{spectral_files,stellar_spectra} && \
-    tar -xf socrates_1710.tar.xz -C ModelE_Support/socrates --strip-components=1 && \
-    tar -xzf spectral_files.tgz -C ModelE_Support/socrates/spectral_files --strip-components=1 && \
-    tar -xzf stellar_spectra.tgz -C ModelE_Support/socrates/stellar_spectra --strip-components=1 && \
+    tar -xf socrates_1710.tar.xz -C ModelE_Support/socrates --strip-components=1 --no-same-owner && \
+    tar -xzf spectral_files.tgz -C ModelE_Support/socrates/spectral_files --strip-components=1 --no-same-owner && \
+    tar -xzf stellar_spectra.tgz -C ModelE_Support/socrates/stellar_spectra --strip-components=1 --no-same-owner && \
     rm socrates_1710.tar.xz spectral_files.tgz stellar_spectra.tgz
 
 # --- Create GISS diagnostic tools ---
