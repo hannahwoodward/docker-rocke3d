@@ -1,4 +1,5 @@
-FROM fedora:latest
+FROM fedora:37 # fedora 37 required for GCC 12.x
+LABEL maintainer=woodwardsh
 
 ENV HOME=/home/app
 ENV MODELDIR=modelE2_planet_1.0
