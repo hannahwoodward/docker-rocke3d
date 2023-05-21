@@ -20,5 +20,5 @@ make clean; make -j setup RUN=P1SoM40_Test
 ../exec/runE P1SoM40_Test -cold-restart -np 2
 
 # Create readable netcdf outputs
-cd /home/app/ModelE_Support/huge_space/P1SoM40_test
+cd /home/app/ModelE_Support/huge_space/P1SoM40_Test
 scaleacc PARTIAL.accP1SoM40_Test.nc aij
