@@ -1,4 +1,5 @@
-FROM fedora:37 # fedora 37 required for GCC 12.x
+# fedora:37 required for GCC 12.x, so as to prevent fortran compiler errors
+FROM fedora:37
 LABEL maintainer=woodwardsh
 
 ENV HOME=/home/app
