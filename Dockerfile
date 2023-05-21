@@ -31,7 +31,7 @@ RUN mkdir $MODELDIR && \
     make config ModelE_Support=$HOME/ModelE_Support
 
 # --- Adjust .modelErc ---
-RUN sed -i "s|#\{0,1\} \{0,1\}SOCRATESPATH=.*|SOCRATESPATH=${HOME}\/ModelE_Support\/socrates|" .modelErc && \
+RUN sed -i "s|#\{0,1\} \{0,1\}SOCRATESPATH=.*|SOCRATESPATH=${HOME}\/socrates|" .modelErc && \
     sed -i "s|#\{0,1\} \{0,1\}NETCDFHOME=.*|NETCDFHOME=/usr|" .modelErc && \
     sed -i "s|#\{0,1\} \{0,1\}MPI=.*|MPI=YES|" .modelErc && \
     sed -i "s|#\{0,1\} \{0,1\}MPIDISTR=.*|MPIDISTR=openmpi|" .modelErc && \
@@ -46,10 +46,10 @@ RUN sed -i "s|#\{0,1\} \{0,1\}SOCRATESPATH=.*|SOCRATESPATH=${HOME}\/ModelE_Suppo
 RUN mkdir -p ModelE_Support/{exec,huge_space,prod_decks,prod_input_files,prod_runs}
 
 # --- Unpack SOCRATES spectral_files, stellar spectra and code files ---
-RUN mkdir -p ModelE_Support/socrates/{spectral_files,stellar_spectra} && \
-    tar -xf socrates_1710.tar.xz -C ModelE_Support/socrates --strip-components=1 --no-same-owner && \
-    tar -xzf spectral_files.tgz -C ModelE_Support/socrates/spectral_files --strip-components=1 --no-same-owner && \
-    tar -xzf stellar_spectra.tgz -C ModelE_Support/socrates/stellar_spectra --strip-components=1 --no-same-owner && \
+RUN mkdir -p socrates/{spectral_files,stellar_spectra} && \
+    tar -xf socrates_1710.tar.xz -C socrates --strip-components=1 --no-same-owner && \
+    tar -xzf spectral_files.tgz -C socrates/spectral_files --strip-components=1 --no-same-owner && \
+    tar -xzf stellar_spectra.tgz -C socrates/stellar_spectra --strip-components=1 --no-same-owner && \
     rm socrates_1710.tar.xz spectral_files.tgz stellar_spectra.tgz
 
 # --- Create GISS diagnostic tools ---

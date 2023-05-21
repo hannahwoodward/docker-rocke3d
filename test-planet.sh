@@ -1,3 +1,6 @@
+# Ensure all dirs exist in ModelE_Support
+mkdir -p $HOME/ModelE_Support/{exec,huge_space,prod_decks,prod_input_files,prod_runs}
+
 # Create planet test rundeck
 cd $MODELDIR/decks
 make rundeck RUNSRC=P1SoM40 RUN=P1SoM40_Test
@@ -6,8 +9,8 @@ make rundeck RUNSRC=P1SoM40 RUN=P1SoM40_Test
 ../exec/get_input_data -w P1SoM40_Test /home/app/ModelE_Support/prod_input_files
 
 # Update some config vars
-sed -i "s|!\{0,1\} \{0,1\}solar_spec_dir=.*|solar_spec_dir='/home/app/ModelE_Support/socrates/stellar_spectra'|" P1SoM40_Test.R
-sed -i "s|!\{0,1\} \{0,1\}spectral_dir=.*|spectral_dir='/home/app/ModelE_Support/socrates/spectral_files'|" P1SoM40_Test.R
+sed -i "s|!\{0,1\} \{0,1\}solar_spec_dir=.*|solar_spec_dir='/home/app/socrates/stellar_spectra'|" P1SoM40_Test.R
+sed -i "s|!\{0,1\} \{0,1\}spectral_dir=.*|spectral_dir='/home/app/socrates/spectral_files'|" P1SoM40_Test.R
 sed -i "s|!\{0,1\} \{0,1\}solar_spec=.*|solar_spec='sun'|" P1SoM40_Test.R
 sed -i "s|!\{0,1\} \{0,1\}spectral_file_lw=.*|spectral_file_lw='sp_lw_ga7/sp_lw_ga7_dsa'|" P1SoM40_Test.R
 sed -i "s|!\{0,1\} \{0,1\}spectral_file_sw=.*|spectral_file_sw='sp_sw_ga7/sp_sw_ga7_dsa'|" P1SoM40_Test.R

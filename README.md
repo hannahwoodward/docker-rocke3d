@@ -25,10 +25,10 @@
 docker pull woodwardsh/rocke3d:latest
 ```
 
-* Run container, noting the mounting of local dir `huge_space` to container `/home/app/ModelE_Support/huge_space` for shared storage of model output:
+* Run container, noting the mounting of local dir `./ModelE_Support` to container `/home/app/ModelE_Support` for shared storage of model output:
 
 ```
-docker run -it --rm --volume=${PWD}/huge_space:/home/app/ModelE_Support/huge_space -w /home/app woodwardsh/rocke3d:latest
+docker run -it --rm --volume=${PWD}:/home/app/ModelE_Support -w /home/app woodwardsh/rocke3d:latest
 
 # Options:
 # -it       interactive && TTY (starts shell inside container)
@@ -50,21 +50,23 @@ git clone git@github.com:hannahwoodward/docker-rocke3d.git && cd docker-rocke3d
 
 ```
 docker build -t rocke3d .
+```
 
-# Or, if debugging:
+* Or, if debugging:
 
+```
 docker build -t rocke3d . --progress=plain --no-cache
 ```
 
-* Run locally built container
+* Run locally built container:
 
 ```
-docker run -it --rm --volume=${PWD}/huge_space:/home/app/ModelE_Support/huge_space -w /home/app rocke3d
+docker run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/app rocke3d
 
 # Options:
 # -it       interactive && TTY (starts shell inside container)
 # --rm      delete container on exit
-# --volume  mount local directory inside container
+# -v        mount local directory inside container
 # -w PATH   sets working directory inside container
 ```
 
@@ -72,8 +74,8 @@ docker run -it --rm --volume=${PWD}/huge_space:/home/app/ModelE_Support/huge_spa
 ## Testing
 
 * Start container
-* Run `sh test-earth.sh` (output written to `huge_space/E1oM20_Test`)
-* Run `sh test-planet.sh` (uses SOCRATES; output written to `huge_space/P1SoM40_test`)
+* Run `sh test-earth.sh` (output written to `ModelE_Support/huge_space/E1oM20_Test`)
+* Run `sh test-planet.sh` (uses SOCRATES; output written to `ModelE_Support/huge_space/P1SoM40_Test`)
 
 
 ## Diagnostics & Post-processing

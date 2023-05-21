@@ -1,3 +1,6 @@
+# Ensure all dirs exist in ModelE_Support
+mkdir -p $HOME/ModelE_Support/{exec,huge_space,prod_decks,prod_input_files,prod_runs}
+
 # Create Earth test rundeck
 cd $MODELDIR/decks
 make rundeck RUNSRC=E1oM20 RUN=E1oM20_Test
