@@ -1,7 +1,6 @@
 # ROCKE-3D Docker Image
 
-[Docker](https://www.docker.com/) image to install and run a containerised ROCKE-3D on Fedora.
-
+[Docker](https://www.docker.com/)/[Podman](https://podman.io/) image to install and run a containerised ROCKE-3D on Fedora.
 
 ## Useful links
 
@@ -37,6 +36,14 @@ docker run -it --rm --volume=${PWD}:/home/app/ModelE_Support -w /home/app woodwa
 # -w PATH   sets working directory inside container
 ```
 
+### Podman
+
+* Replace `docker` with `podman`, and note additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
+
+```
+podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/app --security-opt label=disable woodwardsh/rocke3d:latest
+```
+
 
 ## Installation & running via locally built image
 
@@ -70,6 +77,19 @@ docker run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/a
 # -w PATH   sets working directory inside container
 ```
 
+### Podman
+
+* Build with similar command, replacing `docker` with `podman`:
+
+```
+podman build -t rocke3d .
+```
+
+* Run, with additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
+
+```
+podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/app --security-opt label=disable rocke3d
+```
 
 ## Testing
 
