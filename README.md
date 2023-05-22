@@ -116,6 +116,11 @@ docker login && docker tag rocke3d woodwardsh/rocke3d && docker push woodwardsh/
 
 ## Model info
 
+* Create a rundeck P2{G,S}{A,x,N}{p,q,o}{F,M}40
+  * GISS/SOCRATES radiation
+  * Atmosphere of PI Earth
+  Ocean {p,q,o}
+  * M40 4degx5deg with 40 layers in atmosphere, 13 layers in ocean
 * Rundeck start/stop times:
   * YEAR is just an index, MONTH always 1 to 12, HOUR always 0 to 23
     * Calendar system used divides days into 24 model "hours" and years into 12 "months", so with varying orbital/rotation periods will therefore not generally be 3600s or 720hrs, respectively
