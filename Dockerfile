@@ -11,6 +11,9 @@ WORKDIR ${HOME}
 # --- Install dependencies (layer shared with exocam image) ---
 RUN dnf install -y gcc gcc-gfortran git nano wget which xz netcdf.x86_64 netcdf-fortran.x86_64 netcdf-devel.x86_64 netcdf-fortran-devel.x86_64 openmpi.x86_64 openmpi-devel.x86_64 'perl(File::Copy)'
 
+# Install other dependencies
+RUN dnf install -y ksh task-spooler
+
 # Ensure mpif90 in path & set LD_LIBRARY_PATH for mk_diags
 ENV PATH=$PATH:/usr/lib64/openmpi/bin
 ENV LD_LIBRARY_PATH=/usr/lib64/openmpi/lib
@@ -52,7 +55,16 @@ RUN mkdir -p socrates/{spectral_files,stellar_spectra} && \
     tar -xzf stellar_spectra.tgz -C socrates/stellar_spectra --strip-components=1 --no-same-owner && \
     rm socrates_1710.tar.xz spectral_files.tgz stellar_spectra.tgz
 
-# --- Create GISS diagnostic tools ---
+# --- Compile SOCRATES ---
+RUN sed -i "s|Mk_cmd|Mk_cmd_gfortran|" socrates/make/Makefile && \
+    sed -i "s|INCCDF_PATH.*|INCCDF_PATH     = /usr/lib64/gfortran/modules|" socrates/make/Mk_cmd_gfortran && \
+    sed -i "s|LIBCDF_PATH.*|LIBCDF_PATH     = /usr/lib64|" socrates/make/Mk_cmd_gfortran && \
+    sed -i "s|LIBCDF_NAME.*|LIBCDF_NAME     = netcdff -lnetcdf|" socrates/make/Mk_cmd_gfortran && \
+    cd socrates && \
+    ./build_code && \
+    sed -i "s|LIBCDF_PATH=.*|LIBCDF_PATH=/usr/lib64|" set_rad_env
+
+# --- Add GISS diagnostic tools ---
 RUN cd $MODELDIR/model/mk_diags && \
     make diags
 
@@ -67,3 +79,10 @@ ENV PATH=$PATH:$HOME/bin
 # --- Copy over test runs ---
 COPY src/test-earth.sh test-earth.sh
 COPY src/test-planet.sh test-planet.sh
+
+# --- Add entrypoint.sh ---
+COPY src/entrypoint.sh $HOME
+RUN chmod +x ${HOME}/entrypoint.sh
+
+ENTRYPOINT ["/home/app/entrypoint.sh"]
+CMD ["/bin/bash"]
