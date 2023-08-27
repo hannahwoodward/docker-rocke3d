@@ -60,5 +60,5 @@ RUN cd $MODELDIR/model/mk_diags && \
 ENV PATH=$PATH:$HOME/$MODELDIR/model/mk_diags
 
 # --- Copy over test runs ---
-COPY test-earth.sh test-earth.sh
-COPY test-planet.sh test-planet.sh
+COPY src/test-earth.sh test-earth.sh
+COPY src/test-planet.sh test-planet.sh
