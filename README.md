@@ -101,10 +101,13 @@ podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security
 ## Diagnostics & Post-processing
 
 * [ROCKE-3D Diagnostics info](https://simplex.giss.nasa.gov/gcm/doc/UserGuide/diagnostics.html)
-* `$MODELDIR/model/mk_diags` directory has been added to PATH, which contains scripts to generate readable netcdf model outputs
-  * `scaleacc` for interim/accumulative source files (e.g. `PARTIAL.acc$RUN_ID.nc aij`)
-  * `sumfiles` to combine multiple acc files across different time periods
-  * Documention can be found in `$MODELDIR/model/mk_diags/conventions.txt`
+* The following directories have been added to `$PATH`, which contain scripts to generate readable netcdf model outputs:
+  * `$HOME/$MODELDIR/model/mk_diags`:
+    * `scaleacc` for interim/accumulative source files (e.g. `PARTIAL.acc$RUN_ID.nc aij`)
+    * `sumfiles` to combine multiple acc files across different time periods
+    * Documention can be found in `$MODELDIR/model/mk_diags/conventions.txt`
+  * `$HOME/bin`:
+    * `scaleaccm` the multifile equivalent of `scaleacc`, e.g. `scaleaccm ANN*.acc*.nc aij`
 
 
 ## Publishing image

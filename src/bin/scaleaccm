@@ -1,0 +1,25 @@
+#! /bin/bash
+# Validator: https://www.shellcheck.net/
+
+scaleaccm() {
+    if { [ -z "$1" ] || [ -z "$2" ]; } then
+        usage
+        exit 1
+    fi
+
+    find "$1" -type f -exec scaleacc "{}" "$2" ";"
+}
+
+usage() {
+    echo "scaleaccm <FILEPATTERN> aij"
+    echo "e.g. scaleaccm ANN*.acc*.nc aij"
+}
+
+case "$1" in
+    usage)
+        usage
+        ;;
+    *)
+        scaleaccm "${@:1}"
+        ;;
+esac

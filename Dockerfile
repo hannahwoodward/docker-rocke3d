@@ -59,6 +59,11 @@ RUN cd $MODELDIR/model/mk_diags && \
 # Add mk_diags to path
 ENV PATH=$PATH:$HOME/$MODELDIR/model/mk_diags
 
+# Add custom diagnostic tools
+COPY src/bin/ ${HOME}/bin
+RUN chmod +x ${HOME}/bin/scaleaccm
+ENV PATH=$PATH:$HOME/bin
+
 # --- Copy over test runs ---
 COPY src/test-earth.sh test-earth.sh
 COPY src/test-planet.sh test-planet.sh
