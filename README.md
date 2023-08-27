@@ -127,7 +127,7 @@ docker login && docker tag rocke3d woodwardsh/rocke3d && docker push woodwardsh/
   * `ISTART=2` way to tell the model that initial conditions will be provided (AIC atmosphere, ground GIC, and if relevant ocean OIC)
   * `IRANDI=X` random number generation seed/adding numerical noise, used for cloud generation
   * `master_yr=1850` tells model to use Earth greenhouse gas concentrations
-  * `master_yr=0` runs a transient simulaton
+  * `master_yr=0` runs a transient simulation
 * For non-Earth continental configurations:
   * Ensure land mass added at south pole to prevent grid singularity issues
   * Change `OCNDYN.f#L5812`: `J10=4` to `J10=1` (or whatever latitude south pole landmass ends at)
