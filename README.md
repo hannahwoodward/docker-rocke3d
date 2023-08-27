@@ -27,7 +27,7 @@ docker pull woodwardsh/rocke3d:latest
 * Run container, noting the mounting of local dir `./ModelE_Support` to container `/home/app/ModelE_Support` for shared storage of model output:
 
 ```
-docker run -it --rm --volume=${PWD}:/home/app/ModelE_Support -w /home/app woodwardsh/rocke3d:latest
+docker run -it --rm --volume=${PWD}:/home/app/ModelE_Support woodwardsh/rocke3d:latest
 
 # Options:
 # -it       interactive && TTY (starts shell inside container)
@@ -41,7 +41,7 @@ docker run -it --rm --volume=${PWD}:/home/app/ModelE_Support -w /home/app woodwa
 * Replace `docker` with `podman`, and note additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
 
 ```
-podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/app --security-opt label=disable woodwardsh/rocke3d:latest
+podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable woodwardsh/rocke3d:latest
 ```
 
 
@@ -68,7 +68,7 @@ docker build -t rocke3d . --progress=plain --no-cache
 * Run locally built container:
 
 ```
-docker run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/app rocke3d
+docker run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support rocke3d
 
 # Options:
 # -it       interactive && TTY (starts shell inside container)
@@ -88,7 +88,7 @@ podman build -t rocke3d .
 * Run, with additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
 
 ```
-podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support -w /home/app --security-opt label=disable rocke3d
+podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable rocke3d
 ```
 
 ## Testing
