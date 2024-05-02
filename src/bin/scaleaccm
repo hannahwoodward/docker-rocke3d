@@ -7,12 +7,12 @@ scaleaccm() {
         exit 1
     fi
 
-    find "$1" -type f -exec scaleacc "{}" "$2" ";"
+    find . -name "$1" -type f -exec scaleacc "{}" "$2" ";"
 }
 
 usage() {
-    echo "scaleaccm <FILEPATTERN> aij"
-    echo "e.g. scaleaccm ANN*.acc*.nc aij"
+    echo "scaleaccm \"<FILEPATTERN>\" aij"
+    echo "e.g. scaleaccm \"ANN*.acc*.nc\" aij"
 }
 
 case "$1" in
