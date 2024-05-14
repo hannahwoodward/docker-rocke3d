@@ -45,6 +45,10 @@ RUN sed -i "s|#\{0,1\} \{0,1\}SOCRATESPATH=.*|SOCRATESPATH=${HOME}\/socrates|" .
     sed -i "s|#\{0,1\} \{0,1\}MPILIBDIR=.*|MPILIBDIR=/usr/lib64/openmpi/lib|" .modelErc && \
     sed -i "s|#\{0,1\} \{0,1\}MPIINCLUDEDIR=.*|MPIINCLUDEDIR=/usr/include/openmpi-x86_64|" .modelErc
 
+# --- Copy over additional model files ---
+COPY src/model/ATMDYN_HIGHLOWTEMP.f $MODELDIR/model/ATMDYN_HIGHLOWTEMP.f
+COPY src/model/SEAICE_DRVLOWTEMP.f $MODELDIR/model/SEAICE_DRVLOWTEMP.f
+
 # --- Create required dirs ---
 RUN mkdir -p ModelE_Support/{exec,huge_space,prod_decks,prod_input_files,prod_runs}
 
