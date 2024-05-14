@@ -24,25 +24,33 @@
 docker pull woodwardsh/rocke3d:latest
 ```
 
-* Run container, noting the mounting of local dir `./ModelE_Support` to container `/home/app/ModelE_Support` for shared storage of model output:
+* Navigate to chosen directory for storing model input and output using `cd`
+* Ensure model input/output folders have been created:
 
 ```
-docker run -it --rm --volume=${PWD}:/home/app/ModelE_Support woodwardsh/rocke3d:latest
+mkdir -p exec huge_space prod_decks prod_input_files prod_runs 
+```
 
-# Options:
-# -it       interactive && TTY (starts shell inside container)
-# --rm      delete container on exit
-# --volume  mount local directory inside container
-# -w PATH   sets working directory inside container
+### Docker
+
+* Run container, noting the mounting of local current working directory (`${PWD}`) to container path `/home/app/ModelE_Support` for shared storage of model input/output:
+
+```
+docker run -itd --volume=${PWD}:/home/app/ModelE_Support woodwardsh/rocke3d:latest
 ```
 
 ### Podman
 
-* Replace `docker` with `podman`, and note additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
+* Run container, noting the mounting of local current working directory (`${PWD}`) to container path `/home/app/ModelE_Support` for shared storage of model input/output, and note additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
 
 ```
-podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable woodwardsh/rocke3d:latest
+podman run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable woodwardsh/rocke3d:latest
 ```
+
+### Notes on docker/podman options
+
+* -itd      interactive & TTY (starts shell inside container) & detached 
+* -v        mount local directory inside container
 
 
 ## Installation & running via locally built image
@@ -52,6 +60,8 @@ podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security
 ```
 git clone git@github.com:hannahwoodward/docker-rocke3d.git && cd docker-rocke3d
 ```
+
+### Docker
 
 * Build image from Dockerfile (~15 min):
 
@@ -65,16 +75,17 @@ docker build -t rocke3d .
 docker build -t rocke3d . --progress=plain --no-cache
 ```
 
+* Navigate to chosen directory for storing model input and output using `cd`
+* Ensure model input/output folders have been created:
+
+```
+mkdir -p exec huge_space prod_decks prod_input_files prod_runs 
+```
+
 * Run locally built container:
 
 ```
-docker run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support rocke3d
-
-# Options:
-# -it       interactive && TTY (starts shell inside container)
-# --rm      delete container on exit
-# -v        mount local directory inside container
-# -w PATH   sets working directory inside container
+docker run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support rocke3d
 ```
 
 ### Podman
@@ -85,10 +96,17 @@ docker run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support rocke3d
 podman build -t rocke3d .
 ```
 
-* Run, with additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
+* Navigate to chosen directory for storing model input and output using `cd`
+* Ensure model input/output folders have been created:
 
 ```
-podman run -it --rm -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable rocke3d
+mkdir -p exec huge_space prod_decks prod_input_files prod_runs 
+```
+
+* Start container from image, with additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
+
+```
+podman run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable rocke3d
 ```
 
 ## Testing
