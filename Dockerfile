@@ -45,6 +45,9 @@ RUN sed -i "s|#\{0,1\} \{0,1\}SOCRATESPATH=.*|SOCRATESPATH=${HOME}\/socrates|" .
     sed -i "s|#\{0,1\} \{0,1\}MPILIBDIR=.*|MPILIBDIR=/usr/lib64/openmpi/lib|" .modelErc && \
     sed -i "s|#\{0,1\} \{0,1\}MPIINCLUDEDIR=.*|MPIINCLUDEDIR=/usr/include/openmpi-x86_64|" .modelErc
 
+# --- Change bottom ocean model latitude from 4 to 1 degree ---
+RUN sed -i "s|J1O=4|J1O=1|" $MODELDIR/model/OCNDYN.f
+
 # --- Copy over additional model files ---
 COPY src/model/ATMDYN_HIGHLOWTEMP.f $MODELDIR/model/ATMDYN_HIGHLOWTEMP.f
 COPY src/model/SEAICE_DRVLOWTEMP.f $MODELDIR/model/SEAICE_DRVLOWTEMP.f
