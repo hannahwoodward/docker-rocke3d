@@ -83,6 +83,10 @@ COPY src/bin/ ${HOME}/bin
 RUN chmod +x ${HOME}/bin/scaleaccm
 ENV PATH=$PATH:$HOME/bin
 
+# --- Copy over example decks ---
+RUN mkdir ${HOME}/${MODELDIR}/decks/examples
+COPY src/decks/ ${HOME}/${MODELDIR}/decks/examples
+
 # --- Copy over test runs ---
 COPY src/test-earth.sh test-earth.sh
 COPY src/test-planet.sh test-planet.sh
