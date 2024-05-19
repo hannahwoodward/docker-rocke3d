@@ -28,7 +28,7 @@ docker pull woodwardsh/rocke3d:latest
 * Ensure model input/output folders have been created:
 
 ```
-mkdir -p exec huge_space prod_decks prod_input_files prod_runs 
+mkdir -p exec huge_space prod_decks prod_input_files prod_runs
 ```
 
 ### Docker
@@ -49,8 +49,8 @@ podman run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt
 
 ### Notes on docker/podman options
 
-* -itd      interactive & TTY (starts shell inside container) & detached 
-* -v        mount local directory inside container
+* `-itd`: interactive & TTY (starts shell inside container) & detached
+* `-v`: mount local directory inside container
 
 
 ## Installation & running via locally built image
@@ -79,7 +79,7 @@ docker build -t rocke3d . --progress=plain --no-cache
 * Ensure model input/output folders have been created:
 
 ```
-mkdir -p exec huge_space prod_decks prod_input_files prod_runs 
+mkdir -p exec huge_space prod_decks prod_input_files prod_runs
 ```
 
 * Run locally built container:
@@ -100,7 +100,7 @@ podman build -t rocke3d .
 * Ensure model input/output folders have been created:
 
 ```
-mkdir -p exec huge_space prod_decks prod_input_files prod_runs 
+mkdir -p exec huge_space prod_decks prod_input_files prod_runs
 ```
 
 * Start container from image, with additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
@@ -151,4 +151,4 @@ docker login && docker tag rocke3d woodwardsh/rocke3d && docker push woodwardsh/
   * `master_yr=0` runs a transient simulation
 * For non-Earth continental configurations:
   * Ensure land mass added at south pole to prevent grid singularity issues
-  * Change `OCNDYN.f#L5812`: `J10=4` to `J10=1` (or whatever latitude south pole landmass ends at)
+  * Update `OCNDYN.f#L5812`: `J1O=1` (or whatever latitude south pole landmass ends at, default `J1O=4`)
