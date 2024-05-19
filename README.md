@@ -119,13 +119,13 @@ podman run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt
 ## Diagnostics & Post-processing
 
 * [ROCKE-3D Diagnostics info](https://simplex.giss.nasa.gov/gcm/doc/UserGuide/diagnostics.html)
-* The following directories have been added to `$PATH`, which contain scripts to generate readable netcdf model outputs:
+* The following directories have been added to `$PATH`, which contain scripts to generate readable netcdf model outputs. Use both in model output directories (i.e. `ModelE_Support/huge_space/<simulation_name>`:
   * `$HOME/$MODELDIR/model/mk_diags`:
     * `scaleacc` for interim/accumulative source files (e.g. `PARTIAL.acc$RUN_ID.nc aij`)
     * `sumfiles` to combine multiple acc files across different time periods
     * Documention can be found in `$MODELDIR/model/mk_diags/conventions.txt`
   * `$HOME/bin`:
-    * `scaleaccm` the multifile equivalent of `scaleacc`, e.g. `scaleaccm ANN*.acc*.nc aij`
+    * `scaleaccm` the multifile equivalent of `scaleacc`, usage e.g. `scaleaccm "ANN*.acc*.nc" aij`
 
 
 ## Publishing image
@@ -151,4 +151,4 @@ docker login && docker tag rocke3d woodwardsh/rocke3d && docker push woodwardsh/
   * `master_yr=0` runs a transient simulation
 * For non-Earth continental configurations:
   * Ensure land mass added at south pole to prevent grid singularity issues
-  * Update `OCNDYN.f#L5812`: `J1O=1` (or whatever latitude south pole landmass ends at, default `J1O=4`)
+  * Update `OCNDYN.f#L5812`: `J1O=1` (or whatever latitude south pole landmass ends at, default `J1O=4`, default in image `J1O=1`)
