@@ -16,13 +16,21 @@
 
 ## Installation & running via published image
 
-* [Install Docker desktop](https://www.docker.com/get-started)
-* Ensure Docker desktop is running
+* Install service & check it's running:
+
+| Service       | Instructions  |
+| ------------- | ------------- |
+| Apptainer     | [Apptainer installation](https://apptainer.org/docs/user/main/quick_start.html) |
+| Docker        | [Install Docker desktop](https://www.docker.com/get-started)                    |
+| Podman        | [Podman installation](https://podman.io/docs/installation)                      |
+
 * Download published image:
 
-```
-docker pull woodwardsh/rocke3d:latest
-```
+| Service       | Instructions  |
+| ------------- | ------------- |
+| Apptainer     | `apptainer pull rocke3d.sif docker://woodwardsh/rocke3d:latest` |
+| Docker        | `docker pull woodwardsh/rocke3d:latest`                         |
+| Podman        | `podman pull woodwardsh/rocke3d:latest`                         |
 
 * Navigate to chosen directory for storing model input and output using `cd`
 * Ensure model input/output folders have been created:
@@ -31,26 +39,24 @@ docker pull woodwardsh/rocke3d:latest
 mkdir -p exec huge_space prod_decks prod_input_files prod_runs
 ```
 
-### Docker
+* Run/start container, noting:
+  * the mounting of local current working directory (`${PWD}`) to container path `/home/app/ModelE_Support` for shared storage of model input/output
+  * apptainer (see [apptainer cli docs](https://apptainer.org/docs/user/main/cli/apptainer.html)):
+    * `--compat`: improves compatability with Docker source images 
+    * `--unsquash -w`: allow permanent file writing to container
+    * `cd /home/app`: to navigate to home directory in container (instead of outside user's home directory which is default)
+    * `export HOME=/home/app`: to manually update $HOME
+    * `export LC_CTYPE=C; export LANG=C`: fix perl locale errors (may not be needed for `apptainer exec` or `apptainer shell` commands)
+  * docker & podman:
+    * `-itd`: interactive & TTY (starts shell inside container) & detached
+  * podman:
+    * `--security-opt label=disable`: fixes permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html))
 
-* Run container, noting the mounting of local current working directory (`${PWD}`) to container path `/home/app/ModelE_Support` for shared storage of model input/output:
-
-```
-docker run -itd --volume=${PWD}:/home/app/ModelE_Support woodwardsh/rocke3d:latest
-```
-
-### Podman
-
-* Run container, noting the mounting of local current working directory (`${PWD}`) to container path `/home/app/ModelE_Support` for shared storage of model input/output, and note additional options to fix permissions on mounted volumes (see [podman run](https://docs.podman.io/en/latest/markdown/podman-run.1.html)):
-
-```
-podman run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable woodwardsh/rocke3d:latest
-```
-
-### Notes on docker/podman options
-
-* `-itd`: interactive & TTY (starts shell inside container) & detached
-* `-v`: mount local directory inside container
+| Service       | Instructions  |
+| ------------- | ------------- |
+| Apptainer     | <ul><li>`apptainer instance start --bind ${PWD}:/home/app/ModelE_Support --compat --no-mount bind-paths --no-home --unsquash -w rocke3d.sif`</li><li>`apptainer shell instance://rocke3d`</li><li>`cd /home/app; export HOME=/home/app; export LC_CTYPE=C; export LANG=C`</li></ul> |
+| Docker        | `docker run -itd --volume=${PWD}:/home/app/ModelE_Support woodwardsh/rocke3d:latest` |
+| Podman        | `podman run -itd -v ${PWD}/ModelE_Support:/home/app/ModelE_Support --security-opt label=disable woodwardsh/rocke3d:latest` |
 
 
 ## Installation & running via locally built image
