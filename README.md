@@ -1,15 +1,20 @@
 # ROCKE-3D Docker Image
 
-[Docker](https://www.docker.com/)/[Podman](https://podman.io/) image to install and run a containerised ROCKE-3D on Fedora.
+[Docker](https://www.docker.com/)/[Podman](https://podman.io/)/Apptainer image to install and run a containerised ROCKE-3D (using Fedora base image).
 
 ## Useful links
 
 * [ROCKE-3D Model Description (doi:10.3847/1538-4365/aa7a06)](https://iopscience.iop.org/article/10.3847/1538-4365/aa7a06/meta#apjsaa7a06s3)
 * [ROCKE-3D Webpage](https://simplex.giss.nasa.gov/gcm/ROCKE-3D/)
-* [ROCKE-3D Compilers & libraries](https://docs.google.com/document/d/1-I8x1Op215f3m3NTtEo_cP2G-lP329pyEEUAzH6Xhog/view)
-* [ROCKE-3D Installation](https://docs.google.com/document/d/1yyI0CDx1wEYbwqRsbvczXpdW2teePZ_NgIePTLFHtNA/edit)
+* [Creating a new simulation guide](https://docs.google.com/document/d/1zrXQyEjXLRldWdyiZn2JxxQXz6dU8bayqOltf6eIJgo/edit?tab=t.0)
+  * In-depth guide to setting up a new simulation from scratch, including a description of some of the rundeck parameters etc
+* [Example rundeck files](https://github.com/hannahwoodward/docker-rocke3d/tree/main/src/decks)
+* [Guide to SOCRATES spectral files (radiative transfer component)](https://docs.google.com/document/d/15AYsvIrmOBQ4b5yIw3yJJV4cvkjcdJ0Z2gREKmIVVHs/edit)
+  * A description to all of the available spectral files for SOCRATES, and what atmospheres are 'supported' by each set of spectral files
 * [ROCKE-3D Tutorial Videos](https://www.youtube.com/playlist?list=PLpMmnV3HS7r3KGXX8hmIBR3grXNu5hfW-)
 * [ROCKE-3D Publication Supplements (inc rundecks)](https://portal.nccs.nasa.gov/GISS_modelE/ROCKE-3D/publication-supplements/)
+* [ROCKE-3D Compilers & libraries](https://docs.google.com/document/d/1-I8x1Op215f3m3NTtEo_cP2G-lP329pyEEUAzH6Xhog/view)
+* [ROCKE-3D Installation (not containerised)](https://docs.google.com/document/d/1yyI0CDx1wEYbwqRsbvczXpdW2teePZ_NgIePTLFHtNA/edit)
 * [Docker build help](https://docs.docker.com/engine/reference/commandline/build/)
 * [Docker run help](https://docs.docker.com/engine/reference/commandline/run/)
 
