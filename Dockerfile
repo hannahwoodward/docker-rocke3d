@@ -51,6 +51,7 @@ RUN sed -i "s|J1O=4|J1O=1|" $MODELDIR/model/OCNDYN.f
 # --- Copy over additional model files ---
 COPY src/model/ATMDYN_HIGHLOWTEMP.f $MODELDIR/model/ATMDYN_HIGHLOWTEMP.f
 COPY src/model/SEAICE_DRVLOWTEMP.f $MODELDIR/model/SEAICE_DRVLOWTEMP.f
+COPY src/model/OCNDYN_J1O.f $MODELDIR/model/OCNDYN_J1O.f
 
 # --- Create required dirs ---
 RUN mkdir -p ModelE_Support/{exec,huge_space,prod_decks,prod_input_files,prod_runs}
