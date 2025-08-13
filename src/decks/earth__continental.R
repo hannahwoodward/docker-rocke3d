@@ -234,8 +234,8 @@ crops_yr=-1         ! if -1, crops in VEG-file is used
 volc_yr=-1
 od_cdncx=0.         ! don't include 1st indirect effect
 cc_cdncx=0.         ! don't include 2nd indirect effect (used 0.0036)
-aer_rad_forc=0
-cloud_rad_forc=1
+aer_rad_forc=0      ! if set =1, radiation is called numerous times - slow !!
+cloud_rad_forc=1    ! calls radiation twice; use =0 to save cpu time
 
 ! parameters that control the Shapiro filter
 DT_XUfilter=450.    ! Shapiro filter on U in E-W direction; usually same as DT (below)
@@ -249,8 +249,6 @@ DT=450.
 NIsurf=1            ! surf.interaction times per physics time step, increase as layer 1 gets thinner
 
 ! parameters that affect at most diagn. output:  standard if DTsrc=1800. (sec)
-aer_rad_forc=0      ! if set =1, radiation is called numerous times - slow !!
-cloud_rad_forc=1    ! calls radiation twice; use =0 to save cpu time
 KCOPY=1             ! saving acc + rsf --
                     ! > 1: no output, 1. save .acc; 2: unused, 3: include ocean data
 KSOLAR=2            ! > 2: use long annual mean file ; 1: use short monthly file
